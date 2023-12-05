@@ -12,7 +12,7 @@ dist_key = conv(key, h,'same');
 
 
 %% decode pic prep 3
-dPic = decoder(sign(dist_key), cPic);
+dPic = decoder(dist_key, cPic);
 axis square;
 image(dPic);
 
