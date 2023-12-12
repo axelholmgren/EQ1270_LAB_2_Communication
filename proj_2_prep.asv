@@ -43,15 +43,14 @@ E = nnz(e);
 
 subplot(5,7,i);
 image(recon_pic);
-title(['L= ',num2str(L),'E= ' ,num2str(E)]);
+title(['L= ',num2str(L),' E= ' ,num2str(E)]);
 L = L+1;
 end
 
-%% decode pic prep 3
 %% flip some mf bits :))
 stepsize = 15;
-endnr = stepsize*35 + 1;
-for j = 1:stepsize:endnr
+endnr = 400;
+for j = 100:stepsize:endnr
     % create random
     vector_length=length(best_key);
     random_amount = j;
@@ -63,15 +62,19 @@ for j = 1:stepsize:endnr
     % bitflip best key
     key_to_flip = best_key;
     for k = random_elements;
-        key_to_flip(k) = (-1)*key_to_flip(k);
+       key_to_flip(k) = (-1)*key_to_flip(k);
     end
     flipped_key = key_to_flip;
 
     % print pictures
     recon_flipped_pic = decoder(flipped_key, cPic);
-    x = j./stepsize;
-    subplot(5,7,x);
+    x = round(j./stepsize) + 1;
+    
+    %subplot(3,8,x);
+    
+    tiledlayout("flow")
+    nextile
     image(recon_flipped_pic);
-    title(['BF = ', num2str(x)]);
+    %title(['BF = ', num2str(j)]);
     L = L+1;
 end

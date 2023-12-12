@@ -17,7 +17,7 @@ dist_key = conv(received, h,'same');
 %% Equalizer
 % Equalizer 
 L = 1;
-for i = 1:31
+for i = 1:16
 A = [];
 correct_bits = training(L+1:32);
 
@@ -41,16 +41,16 @@ recon_pic = decoder(mapped_key, cPic);
 e = mapped_key(1:32) - training;
 E = nnz(e);
 
-subplot(5,7,i);
+subplot(5,8,i);
 image(recon_pic);
 title(['L= ',num2str(L),'E= ' ,num2str(E)]);
 L = L+1;
 end
 
 %% flip some mf bits :))
-stepsize = 15;
-endnr = stepsize*35 + 1;
-for j = 1:stepsize:endnr
+stepsize = 50;
+endnr = 750;
+for j = 0:stepsize:endnr
     % create random
     vector_length=length(best_key);
     random_amount = j;
