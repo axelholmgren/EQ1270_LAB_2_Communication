@@ -17,7 +17,7 @@ dist_key = conv(received, h,'same');
 %% Equalizer
 % Equalizer 
 L = 1;
-for i = 1:31
+for i = 1:16;
 A = [];
 correct_bits = training(L+1:32);
 
@@ -26,7 +26,7 @@ for row = 0:31-L;
         A(row+1,column+1) = received(L+1-column+row);
     end;
 end;
-
+size(A)
 g = A\correct_bits;
 
 
@@ -34,23 +34,24 @@ reconstructed_key = filter(g,1,received);
 mapped_key = sign(reconstructed_key);
 if L == 7
     best_key = mapped_key;
-end
+    end4
 recon_pic = decoder(mapped_key, cPic);
 
 % Differentiated elements
 e = mapped_key(1:32) - training;
 E = nnz(e);
 
-subplot(5,7,i);
+subplot(5,8,i);
 image(recon_pic);
-title(['L= ',num2str(L),' E= ' ,num2str(E)]);
+title(['L= ',num2str(L),'E= ' ,num2str(E)]);
 L = L+1;
+end
 end
 
 %% flip some mf bits :))
-stepsize = 15;
-endnr = 400;
-for j = 100:stepsize:endnr
+stepsize = 50;
+endnr = 750;
+for j = 0:stepsize:endnr
     % create random
     vector_length=length(best_key);
     random_amount = j;
@@ -69,12 +70,8 @@ for j = 100:stepsize:endnr
     % print pictures
     recon_flipped_pic = decoder(flipped_key, cPic);
     x = round(j./stepsize) + 1;
-    
-    %subplot(3,8,x);
-    
-    tiledlayout("flow")
-    nextile
+    subplot(5,8,x);
     image(recon_flipped_pic);
-    %title(['BF = ', num2str(j)]);
+    title(['BF = ', num2str(j)]);
     L = L+1;
 end

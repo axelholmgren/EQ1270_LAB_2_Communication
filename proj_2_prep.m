@@ -17,7 +17,7 @@ dist_key = conv(received, h,'same');
 %% Equalizer
 % Equalizer 
 L = 1;
-for i = 1:16
+for i = 1:16;
 A = [];
 correct_bits = training(L+1:32);
 
@@ -26,7 +26,7 @@ for row = 0:31-L;
         A(row+1,column+1) = received(L+1-column+row);
     end;
 end;
-
+size(A)
 g = A\correct_bits;
 
 
@@ -34,7 +34,7 @@ reconstructed_key = filter(g,1,received);
 mapped_key = sign(reconstructed_key);
 if L == 7
     best_key = mapped_key;
-end
+    end4
 recon_pic = decoder(mapped_key, cPic);
 
 % Differentiated elements
@@ -46,6 +46,7 @@ image(recon_pic);
 title(['L= ',num2str(L),'E= ' ,num2str(E)]);
 L = L+1;
 end
+
 
 %% flip some mf bits :))
 stepsize = 50;
