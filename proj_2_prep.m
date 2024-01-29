@@ -32,9 +32,12 @@ g = A\correct_bits;
 
 reconstructed_key = filter(g,1,received);
 mapped_key = sign(reconstructed_key);
+<<<<<<< HEAD
 if L == 7
     best_key = mapped_key;
     end4
+=======
+>>>>>>> parent of 82131e7 (det är klart)
 recon_pic = decoder(mapped_key, cPic);
 
 % Differentiated elements
@@ -47,6 +50,7 @@ title(['L= ',num2str(L),'E= ' ,num2str(E)]);
 L = L+1;
 end
 
+<<<<<<< HEAD
 
 %% flip some mf bits :))
 stepsize = 50;
@@ -75,3 +79,9 @@ for j = 0:stepsize:endnr
     title(['BF = ', num2str(j)]);
     L = L+1;
 end
+=======
+%% decode pic prep 3
+%dPic = decoder(dist_key, cPic);
+%axis square;
+%image(dPic);
+>>>>>>> parent of 82131e7 (det är klart)
